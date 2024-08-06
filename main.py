@@ -71,7 +71,7 @@ if __name__ == '__main__':
 
     # Add menu items as labels
     menu_items = ["List of books", "Habits", "Goals", "Planning", "Analysis"]
-    selected_item = tk.StringVar()
+    # selected_item = tk.StringVar()
 
     # Add menu labels with buttons and visual effects
     for itemm in menu_items:
