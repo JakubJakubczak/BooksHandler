@@ -1,61 +1,33 @@
 import tkinter as tk
 from tkinter import Menu, Label, Frame
-from tkinter import ttk
+import constraints
+import books
+import goals
+import habits
+import analyse
+import planning
 
 
-#Constaints:
-
-menu_bg_color = "#00009f"
-content_bg_color = "#00005f"
-font_color = "#ffffff"
-def show_books():
-    # Clear the content frame and display the list of books
-    clear_content()
-    label = Label(content_frame, text="List of Books:\n1. Book One\n2. Book Two\n3. Book Three", font=("Arial", 14))
-    label.pack(pady=20)
-
-def show_habits():
-    # Clear the content frame and display the list of books
-    clear_content()
-    label = Label(content_frame, text="habits", font=("Arial", 14))
-    label.pack(pady=20)
-
-def show_analyse():
-    # Clear the content frame and display the list of books
-    clear_content()
-    label = Label(content_frame, text="analyse", font=("Arial", 14))
-    label.pack(pady=20)
-
-def show_goals():
-    # Clear the content frame and display the list of books
-    clear_content()
-    label = Label(content_frame, text="goals", font=("Arial", 14))
-    label.pack(pady=20)
-def show_planning():
-    # Clear the content frame and display the planning section
-    clear_content()
-    label = Label(content_frame, text="Planning:\n1. Reading Schedule\n2. Future Books to Read", font=("Arial", 14))
-    label.pack(pady=20)
-
-def clear_content():
+def clear_content(frame):
     # Clear the content frame
-    for widget in content_frame.winfo_children():
+    for widget in frame.winfo_children():
         widget.destroy()
 
 def on_click_menu_item(item):
-    # selected_item.set(item)
+    clear_content(content_frame)
+
     if item == "List of books":
-        show_books()
+        books.show_books(content_frame)
     elif item == "Planning":
-        show_planning()
+        planning.show_planning(content_frame)
     elif item == "Habits":
-        show_habits()
+        habits.show_habits(content_frame)
     elif item == "Goals":
-        show_goals()
+        goals.show_goals(content_frame)
     elif item == "Analysis":
-        show_analyse()
+        analyse.show_analyse(content_frame)
     else:
-        clear_content()
+        clear_content(content_frame)
 
 if __name__ == '__main__':
     # Create the main window
@@ -66,28 +38,27 @@ if __name__ == '__main__':
     root.geometry("1000x700")  # Width x Height
 
     # Create a frame for the custom menu
-    menu_frame = tk.Frame(root, bg=menu_bg_color)
+    menu_frame = tk.Frame(root, bg=constraints.menu_bg_color)
     menu_frame.pack(side="top", fill="x")
 
     # Add menu items as labels
     menu_items = ["List of books", "Habits", "Goals", "Planning", "Analysis"]
-    # selected_item = tk.StringVar()
 
     # Add menu labels with buttons and visual effects
     for itemm in menu_items:
-        lbl = tk.Label(menu_frame, text=itemm, font=("Helvetica", 14), fg=font_color, bg=menu_bg_color,
+        lbl = tk.Label(menu_frame, text=itemm, font=("Helvetica", 14), fg=constraints.font_color, bg=constraints.menu_bg_color,
                        padx=20, pady=10, cursor="hand2")
         lbl.pack(side="left")
         lbl.bind("<Button-1>", lambda e, item=itemm: on_click_menu_item(item))
         lbl.bind("<Enter>", lambda e: e.widget.config(fg="#007bff"))
-        lbl.bind("<Leave>", lambda e: e.widget.config(fg=font_color))
+        lbl.bind("<Leave>", lambda e: e.widget.config(fg=constraints.font_color))
 
     # Main content area
-    content_frame = tk.Frame(root, bg=content_bg_color)
+    content_frame = tk.Frame(root, bg=constraints.content_bg_color)
     content_frame.pack(fill="both", expand=True)
 
     # Initial welcome message
-    welcome_label = tk.Label(content_frame, text="Welcome to your Book Manager!", font=("Helvetica", 18, "bold"), bg=content_bg_color, fg=font_color)
+    welcome_label = tk.Label(content_frame, text="Welcome to your Book Manager!", font=("Helvetica", 18, "bold"), bg=constraints.content_bg_color, fg=constraints.font_color)
     welcome_label.pack(pady=20)
 
     # Run the main loop
